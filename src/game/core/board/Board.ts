@@ -47,7 +47,7 @@ export class Board {
             [ResourceEnum.Clay]: 3,
             [ResourceEnum.None]: 1,
         }
-        const gen_tile_node: () => ITileNode = () => {
+        const gen_tile_node: (id) => ITileNode = () => {
 
         }
         this.tiles = [
