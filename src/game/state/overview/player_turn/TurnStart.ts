@@ -4,7 +4,7 @@ import { GameOver } from "../GameOver";
 import { PlayerTurn } from "../PlayerTurn";
 import { Build } from "./Build";
 import { DevCard } from "./DevCard";
-import { Offer } from "./Offer";
+import { Offer } from "./trade/Offer";
 
 export class TurnStart extends GameState {
     private player_sz: number;

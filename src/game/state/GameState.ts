@@ -1,6 +1,7 @@
 import { GameCore } from "../core/GameCore"
 
-export type Action = () => boolean;
+export interface IActionArgs {} 
+export type Action = (args?: IActionArgs) => boolean;
 
 export interface IGameState {
     name: string;

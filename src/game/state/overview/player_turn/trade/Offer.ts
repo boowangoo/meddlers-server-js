@@ -1,6 +1,8 @@
-import { GameCore } from "../../../core/GameCore";
-import { GameState, Action } from "../../GameState";
-import { Trade } from "./Trade";
+import { GameCore } from "../../../../core/GameCore";
+import { GameState, Action } from "../../../GameState";
+import { Trade } from "../Trade";
+
+
 
 export class Offer extends GameState {
     private player_sz: number;

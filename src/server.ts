@@ -8,6 +8,8 @@ const app: Application = express();
 const httpServer: http.Server = createServer(app);
 const io = new Server(httpServer, {});
 
+
+
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
     res.sendFile(path.join(__dirname, "/public/index.html"));
 });
