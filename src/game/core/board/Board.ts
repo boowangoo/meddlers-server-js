@@ -1,9 +1,9 @@
 import { off } from "process";
-import { SettlementNode, TileNode, SettlementEnum, ResourceEnum, NodeId, TileNumber, Road } from "../common/GameTypes";
-import { rand_i } from "../common/Utils";
-import { Roads } from "./board/Roads";
-import { Settlements } from "./board/Settlements";
-import { Tiles } from "./board/Tiles";
+import { SettlementNode, TileNode, SettlementEnum, ResourceEnum, NodeId, TileNumber, Road } from "../../common/GameTypes";
+import { rand_i } from "../../common/Utils";
+import { Roads } from "./Roads";
+import { Settlements } from "./Settlements";
+import { Tiles } from "./Tiles";
 
 export class Board {
     // settlements

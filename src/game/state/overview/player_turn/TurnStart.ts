@@ -32,7 +32,7 @@ export class TurnStart extends PlayerTurnGameState {
     }
 
     private buy_dev_card = (offer: IOffer): boolean => {
-        
+        this.core.buy_dev_card();
     }
 
     private port = (offer: IOffer): boolean => {
