@@ -1,20 +1,12 @@
+import { PlayerId } from "../../common/GameTypes";
 import { GameCore } from "../../core/GameCore";
-import { GameState, IGameState, Action } from "../GameState";
+import { GameState } from "../GameState";
+import { FirstRoundTown } from "./first_round/FirstRoundTown";
 import { PlayerTurn } from "./PlayerTurn";
 
-export class FirstRound extends GameState {
-    private next_round: Action = () => {
-        // super.core.setup();
-        super.newState = new PlayerTurn(super.core, 4, 0);
-        return true;
-    }
-
+export class FirstRound extends FirstRoundTown {
     constructor(core: GameCore) {
-        super(core);
-        super.name = "setup";
-        super.newState = this;
-        super.actions = {
-            "next_round": this.next_round,
-        };
+        core.prepare_players();
+        super(core, 0, 0);
     }
 }

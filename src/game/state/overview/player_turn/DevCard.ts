@@ -3,52 +3,52 @@ import { GameState } from "../../GameState";
 import { TurnStart } from "./TurnStart";
 import { Robber } from "./Robber";
 import { Build } from "./Build";
+import { DevCardEnum, PlayerId } from "../../../common/GameTypes";
+import { PlayerTurnGameState } from "../PlayerTurn";
 
-type DevCardAction = (build: string) => boolean;
-
-export class DevCard extends GameState {
-    private player_sz: number;
-    private player_id: number;
-
-    private play_dev_card: DevCardAction = (action: string) => {
-        switch (action) {
-            case "knight":
-                super.newState = new Robber(super.core, this.player_sz, this.player_id);
+export class DevCard extends PlayerTurnGameState {
+    private play_dev_card = (devCard: DevCardEnum): boolean => {
+        switch (devCard) {
+            case DevCardEnum.KNIGHT:
+                this.nextState = new Robber(this.core, this.player_id);
                 break;
-            case "road_building":
-                super.newState = new Build(super.core, this.player_sz, this.player_id);
+            case DevCardEnum.ROAD_BUILDING:
+                this.nextState = new Build(this.core, this.player_id);
                 break;
-            case "victory_point":
-                super.newState = new TurnStart(super.core, this.player_sz, this.player_id);
+            // case DevCardEnum.VICTORY_POINT:
+            //     this.nextState = new TurnStart(this.core, this.player_id);
+            //     break;
+            case DevCardEnum.MONOPOLY:
+                this.nextState = new TurnStart(this.core, this.player_id);
                 break;
-            case "monopoly":
-                super.newState = new TurnStart(super.core, this.player_sz, this.player_id);
-                break;
-            case "year_of_plenty":
-                super.newState = new TurnStart(super.core, this.player_sz, this.player_id);
+            case DevCardEnum.YEAR_OF_PLENTY:
+                this.nextState = new TurnStart(this.core, this.player_id);
                 break;
             default:
-                super.newState = new TurnStart(super.core, this.player_sz, this.player_id);
+                this.nextState = new TurnStart(this.core, this.player_id);
                 break;
         }
         return true;
     }
     
-    constructor(core: GameCore, player_sz: number, player_id: number) {
-        super(core);
-        super.name = "setup";
-        super.newState = this;
-        super.actions = {
-            "knight": () => this.play_dev_card("knight"),
-            "victory_point": () => this.play_dev_card("victory_point"),
-            "monopoly": () => this.play_dev_card("monopoly"),
-            "year_of_plenty": () => this.play_dev_card("year_of_plenty"),
-            "road_building": () => this.play_dev_card("road_building"),
-            "cancel": () => this.play_dev_card("cancel"),
+    cancel = (): boolean => {
+        this.nextState = new TurnStart(this.core, this.player_id);
+        return true;
+    }
+    
+    constructor(core: GameCore, player_id: PlayerId) {
+        super(core, player_id);
+        this.name = "setup";
+        this.nextState = this;
+        this.actions = {
+            "knight": () => this.play_dev_card(DevCardEnum.KNIGHT),
+            // "victory_point": () => this.play_dev_card(DevCardEnum.VICTORY_POINT),
+            "monopoly": () => this.play_dev_card(DevCardEnum.MONOPOLY),
+            "year_of_plenty": () => this.play_dev_card(DevCardEnum.YEAR_OF_PLENTY),
+            "road_building": () => this.play_dev_card(DevCardEnum.ROAD_BUILDING),
+            "cancel": () => this.cancel(),
         };
-        
-        this.player_sz = player_sz;
-        this.player_id = player_id;
+        console.log("DevCard:", this);
     }
 }
                     

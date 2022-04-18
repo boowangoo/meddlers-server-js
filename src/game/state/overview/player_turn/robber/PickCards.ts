@@ -1,25 +1,22 @@
+import { PlayerId } from "../../../../common/GameTypes";
 import { GameCore } from "../../../../core/GameCore";
-import { GameState, Action } from "../../../GameState";
+import { GameState } from "../../../GameState";
+import { PlayerTurnGameState } from "../../PlayerTurn";
 import { TurnStart } from "../TurnStart";
 
-export class PickCards extends GameState {
-    private player_sz: number;
-    private player_id: number;
-
-    private end_robber: Action = () => {
-        super.newState = new TurnStart(super.core, this.player_sz, this.player_id);
+export class PickCards extends PlayerTurnGameState {
+    private end_robber = (): boolean => {
+        this.nextState = new TurnStart(this.core, this.player_id);
         return true;
     }
 
-    constructor(core: GameCore, player_sz: number, player_id: number) {
-        super(core);
-        super.name = "pick_cards";
-        super.newState = this;
-        super.actions = {
+    constructor(core: GameCore, player_id: PlayerId) {
+        super(core, player_id);
+        this.name = "pick_cards";
+        this.nextState = this;
+        this.actions = {
             "end_robber": this.end_robber,
         };
-
-        this.player_sz = player_sz;
-        this.player_id = player_id;
+        console.log("PickCards:", this);
     }
 }
